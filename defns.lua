@@ -4,7 +4,13 @@
 ---@alias SoundSpec string
 ---@alias ColorSpec Color|string
 
--- TODO Should we have a separate "Pos" class for old-style {x, y, z} tables?
+---Vector-like objects that do not contain the vector metatables (ie. not
+---constructed with vector.zero())
+---@class SimpleVec
+---@field x number
+---@field y number
+---@field z number
+local SimpleVec = { }
 
 ---@class Vec
 ---@field x number

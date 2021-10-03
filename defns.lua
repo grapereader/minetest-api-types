@@ -224,8 +224,10 @@ function PerlinNoiseMap:get_map_slice(slice_offset, slice_size, buffer) end
 ---@class HttpApiTable
 local HttpApiTable = { }
 
+---@alias HttpRequestCallback fun(res: HttpRequestResultDefn)
+
 ---@param req HttpRequestDefn
----@param callback fun(res: HttpRequestResultDefn)
+---@param callback HttpRequestCallback
 function HttpApiTable.fetch(req, callback) end
 ---@param req HttpRequestDefn
 ---@return any handle

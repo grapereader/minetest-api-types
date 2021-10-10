@@ -511,11 +511,17 @@ function InvRef:get_location() end
 ---@class PlayerMetaRef : MetaDataRef
 local PlayerMetaRef = {}
 
+---@class ToolGroupEntry
+---@field maxlevel integer Indicates the maximum level of a node of this group that the item will be able to dig.
+---@field uses integer
+---@field times number[] List of digging times for different ratings of the group, for nodes of the maximum level. For example, as a Lua table, `times={2=2.00, 3=0.70}`. This would result in the item to be able to dig nodes that have a rating of `2` or `3` for this group, and unable to dig the rating `1`, which is the toughest. Unless there is a matching group that enables digging otherwise. If the result digging time is 0, a delay of 0.15 seconds is added between digging nodes; If the player releases LMB after digging, this delay is set to 0, i.e. players can more quickly click the nodes away instead of holding LMB.
+local ToolGroupEntry = { }
+
 ---@class ToolCapabilities
----@field full_punch_interval number
----@field max_drop_level integer
----@field groupcaps table
----@field damage_groups table
+---@field full_punch_interval number When used as a weapon, the item will do full damage if this time is spent between punches. If e.g. half the time is spent, the item will do half damage.
+---@field max_drop_level integer Suggests the maximum level of node, when dug with the item, that will drop its useful item. (e.g. iron ore to drop a lump of iron). This is not automated; it is the responsibility of the node definition to implement this.
+---@field groupcaps table<string, ToolGroupEntry>
+---@field damage_groups table<string, number>
 ---@field punch_attack_uses integer | nil
 local ToolCapabilities = { }
 
@@ -674,7 +680,7 @@ function PlayerObjectRef:get_player_control_bits() end
 function PlayerObjectRef:set_physics_override(override_table) end
 --- @return { speed: number, jump: number, gravity: number, sneak: boolean, sneak_glitch: boolean, new_move: boolean }
 function PlayerObjectRef:get_physics_override() end
----@param definition any
+---@param definition HudDefn
 ---@return number id on success
 function PlayerObjectRef:hud_add(definition) end
 ---@param id number
